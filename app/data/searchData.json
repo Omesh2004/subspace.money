@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "title": "Netflix Premium Split",
+    "category": "Deal",
+    "url": "/explore"
+  },
+  {
+    "id": "2",
+    "title": "Spotify Premium Family",
+    "category": "Deal",
+    "url": "/explore"
+  },
+  {
+    "id": "3",
+    "title": "YouTube Premium",
+    "category": "Deal",
+    "url": "/explore"
+  },
+  {
+    "id": "4",
+    "title": "Amazon Prime Video",
+    "category": "Deal",
+    "url": "/explore"
+  },
+  {
+    "id": "5",
+    "title": "How to save money on subscriptions",
+    "category": "Article",
+    "url": "#"
+  },
+  {
+    "id": "6",
+    "title": "Understanding KYC requirements",
+    "category": "Help & Support",
+    "url": "#"
+  },
+  {
+    "id": "7",
+    "title": "Payout Methods",
+    "category": "Settings",
+    "url": "#"
+  },
+  {
+    "id": "8",
+    "title": "Profile Settings",
+    "category": "Settings",
+    "url": "/profile"
+  },
+  {
+    "id": "9",
+    "title": "Explore",
+    "category": "Navigation",
+    "url": "/explore"
+  }
+]
