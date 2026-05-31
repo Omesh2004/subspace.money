@@ -14,6 +14,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   
   // Search State
   const [searchQuery, setSearchQuery] = useState('');
@@ -223,12 +224,81 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </button>
 
             {/* Profile Avatar */}
-            <div style={{ width: 42, height: 42, borderRadius: '50%', padding: '2px', background: 'var(--accent-violet)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {session?.user?.image ? (
-                <img src={session.user.image} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--bg-nav)' }} />
-              ) : (
-                <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '2px solid var(--bg-nav)', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <User size={18} color="var(--text-tertiary)" />
+            <div style={{ position: 'relative' }}>
+              <button 
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                style={{ 
+                  width: 42, 
+                  height: 42, 
+                  borderRadius: '50%', 
+                  padding: '2px', 
+                  background: 'var(--accent-violet)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  border: 'none',
+                  outline: 'none'
+                }}
+              >
+                {session?.user?.image ? (
+                  <img src={session.user.image} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--bg-nav)' }} />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '2px solid var(--bg-nav)', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <User size={18} color="var(--text-tertiary)" />
+                  </div>
+                )}
+              </button>
+
+              {/* Profile Dropdown */}
+              {profileMenuOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '120%',
+                  right: 0,
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '0.5rem',
+                  minWidth: '160px',
+                  zIndex: 50,
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+                }}>
+                  <div style={{ padding: '0.5rem', borderBottom: '1px solid var(--border-subtle)', marginBottom: '0.5rem' }}>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      {session?.user?.name || 'User'}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                      {session?.user?.email}
+                    </div>
+                  </div>
+                  
+                  <button 
+                    onClick={() => {
+                      import('next-auth/react').then((mod) => mod.signOut({ callbackUrl: '/' }));
+                    }}
+                    style={{ 
+                      width: '100%', 
+                      textAlign: 'left', 
+                      padding: '0.6rem 0.75rem', 
+                      background: 'transparent', 
+                      color: '#ef4444', 
+                      border: 'none', 
+                      borderRadius: 'var(--radius-sm)', 
+                      cursor: 'pointer', 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      fontSize: '0.9rem', 
+                      fontWeight: 500,
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <span style={{ transform: 'scale(-1, 1)' }}>🚪</span>
+                    <span>Log Out</span>
+                  </button>
                 </div>
               )}
             </div>

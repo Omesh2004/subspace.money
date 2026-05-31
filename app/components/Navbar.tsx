@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useTheme } from '../context/ThemeContext';
+import { Sun, Moon } from 'lucide-react';
 
 const navLinks = [
   { label: 'Features', href: '#features' },
@@ -13,6 +15,7 @@ const navLinks = [
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -105,12 +108,63 @@ export default function Navbar() {
           {session ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <a href="/explore" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Explore</a>
+              
+              {/* Theme Toggle */}
+              <button 
+                onClick={toggleTheme}
+                style={{
+                  width: 64, height: 32, borderRadius: '16px', background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)', position: 'relative', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', padding: '0 4px', transition: 'all 0.3s'
+                }}
+                aria-label="Toggle Theme"
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 4px', opacity: 0.6 }}>
+                  <Sun size={14} color="var(--text-tertiary)" />
+                  <Moon size={14} color="var(--text-tertiary)" />
+                </div>
+                <div style={{
+                  position: 'absolute', left: theme === 'dark' ? 34 : 4, width: 24, height: 24,
+                  borderRadius: '50%', background: 'var(--text-primary)', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', transition: 'all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                  color: 'var(--bg-primary)', zIndex: 2
+                }}>
+                  {theme === 'dark' ? <Moon size={14} fill="currentColor" /> : <Sun size={14} fill="currentColor" />}
+                </div>
+              </button>
+
               <button onClick={() => signOut()} className="btn-outline" style={{ padding: '0.4rem 1rem', fontSize: '0.875rem' }}>Sign Out</button>
             </div>
           ) : (
-            <button onClick={() => signIn('google', { callbackUrl: '/onboarding' })} className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.875rem' }}>
-              <span>Get Started</span>
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              {/* Theme Toggle */}
+              <button 
+                onClick={toggleTheme}
+                style={{
+                  width: 64, height: 32, borderRadius: '16px', background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)', position: 'relative', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', padding: '0 4px', transition: 'all 0.3s'
+                }}
+                aria-label="Toggle Theme"
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 4px', opacity: 0.6 }}>
+                  <Sun size={14} color="var(--text-tertiary)" />
+                  <Moon size={14} color="var(--text-tertiary)" />
+                </div>
+                <div style={{
+                  position: 'absolute', left: theme === 'dark' ? 34 : 4, width: 24, height: 24,
+                  borderRadius: '50%', background: 'var(--text-primary)', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', transition: 'all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                  color: 'var(--bg-primary)', zIndex: 2
+                }}>
+                  {theme === 'dark' ? <Moon size={14} fill="currentColor" /> : <Sun size={14} fill="currentColor" />}
+                </div>
+              </button>
+
+              <button onClick={() => signIn('google', { callbackUrl: '/onboarding' })} className="btn-primary" style={{ padding: '0.6rem 1.5rem', fontSize: '0.875rem' }}>
+                <span>Get Started</span>
+              </button>
+            </div>
           )}
         </div>
 
