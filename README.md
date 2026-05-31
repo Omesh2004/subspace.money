@@ -75,6 +75,9 @@ Follow these steps to run the Subspace.money frontend on your local machine:
 5. **View the Application:**
    Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
+
+   https://youtu.be/80qvRkyKOXs
+
 ---
 
 ## Conclusion
