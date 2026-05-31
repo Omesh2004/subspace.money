@@ -76,7 +76,11 @@ Follow these steps to run the Subspace.money frontend on your local machine:
    Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 
-   https://youtu.be/80qvRkyKOXs
+  # Product Management Submission: Subspace.money
+
+[![Watch the demo video](https://raw.githubusercontent.com/Omesh2004/subspace.money/main/demo-thumbnail.png)](https://www.youtube.com/watch?v=your-video-id)
+
+...
 
 ---
 
